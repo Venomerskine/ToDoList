@@ -20,7 +20,7 @@ export function findProjectByName (name) {
 }
 
 //Create todo & Add todo to project
-export function createTodoAnsAddToProject(projectName, name, description, dueDate, priority, completed, notes) {
+export function createTodoAndAddToProject(projectName, name, description, dueDate, priority, completed, notes) {
     const targetProject = findProjectByName(projectName)
 
     if (targetProject) {
@@ -41,15 +41,15 @@ export function deleteFromProject(projectName, todoId){
 
     if(targetProject) {
         const todoIndex = targetProject.todos.findIndex(todo => todo.id === todoId)
-        if (todoIndex !== 1){
-            const deletedTodo = targetProject.todo.splice(todoIndex, 1)
+        if (todoIndex !== -1){
+            const deletedTodo = targetProject.todos.splice(todoIndex, 1)
             console.log("todo deleted")
             return deletedTodo
         } else {
             return null
         }
     } else {
-        console.log("Garadge not found")
+        console.log("Project not found")
         return null
     }
 }

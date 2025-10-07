@@ -3,7 +3,7 @@ import {Todo} from './todo.js'
 export class Project {
     constructor (name, description) {
         this.name = String(name);
-        this.decription = String(description)
+        this.description = String(description)
         this.todos = []
     }
 
@@ -12,7 +12,7 @@ export class Project {
             this.todos.push(todo)
             console.log(`${todo.name} added to the project`)
         } else {
-            console.error("Iinvalid object. Only car instance can be added")
+            console.error("Iinvalid object. Only todo instance can be added")
         }
     }
 
