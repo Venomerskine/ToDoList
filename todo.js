@@ -10,7 +10,7 @@ this.notes = String(notes);
     }
 
     toggleComplete(){
-        this.completed === true ? false : true
+        this.completed = this.completed === true ? false : true
     }
 
     update(updates){
