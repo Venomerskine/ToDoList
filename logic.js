@@ -34,3 +34,23 @@ export function createTodoAnsAddToProject(projectName, name, description, dueDat
 
 }
 
+// Delete from project
+
+export function deleteFromProject(projectName, todoId){
+    const targetProject = findProjectByName(projectName);
+
+    if(targetProject) {
+        const todoIndex = targetProject.todos.findIndex(todo => todo.id === todoId)
+        if (todoIndex !== 1){
+            const deletedTodo = targetProject.todo.splice(todoIndex, 1)
+            console.log("todo deleted")
+            return deletedTodo
+        } else {
+            return null
+        }
+    } else {
+        console.log("Garadge not found")
+        return null
+    }
+}
+
