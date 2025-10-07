@@ -1,6 +1,6 @@
 import {Todo} from './todo.js'
 
-class project {
+export class Project {
     constructor (name, description) {
         this.name = String(name);
         this.decription = String(description)
