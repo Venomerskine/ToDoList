@@ -12,4 +12,8 @@ this.notes = String(notes);
     toggleComplete(){
         this.completed === true ? false : true
     }
+
+    update(updates){
+        Object.assign(this, updates)
+    }
 }
