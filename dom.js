@@ -12,7 +12,7 @@ export function renderProjects(projects){
             <ul id="project-list"><ul>
             <button id="add-project-btn" >Add New Project</button>
         </div>
-        <main id="todo-details">
+        <main id="project-details">
             <h2>Welcome! Select aproject to begin.</h2>
         </main>
         `
@@ -30,4 +30,28 @@ export function renderProjects(projects){
         li.classList.add('project-list-item')
         projectListUl.appendChild(li)
     });
+}
+
+// Render the to-do of the selected project in the main content area.
+export function renderTodos(project) {
+    const mainContent = document.getElementById('project-details')
+    if(!mainContent) return 
+
+    const todosHtml = project.todos.map(todo => 
+        `<div class = "todo-item" data-todo-id = "${todo.id}" >
+            <input type = "checkbox" ${todo.completed ? 'checked' : ''}>
+            <span>${todo.name} (Due: ${todo.dueDate || 'N/A'}) [${todo.priority}]</span>
+            <button class = "delete-to-btn" data-todo-id = "${todo.id}" >Delete</button>
+        </div>
+        `
+    ).join('')
+
+    mainContent.innerHTML = `
+        <h2>Project: ${project.name}</h2>
+        <p>${project.description}</p>
+        <hr>
+        <h3>To-Dos</h3>
+        <div id="todos-container">${todosHtml}</div>
+        <button id="add-todo-btn">Add New To-Do</button>
+    `
 }
