@@ -55,3 +55,16 @@ export function renderTodos(project) {
         <button id="add-todo-btn">Add New To-Do</button>
     `
 }
+
+// --- Event Binding Functions --- //
+
+//when a project is created calles the handler function
+
+export function bindAppProject(handler) {
+    const addProjectBtn = document.getElemtBy<IdleDeadline('add-project-btn');
+    if(!addProjectBtn) return 
+
+    addProjectBtn.addEventListener('click', () => {
+        //open form or modal
+    })
+}
