@@ -17,4 +17,17 @@ export function renderProjects(projects){
         </main>
         `
     }
+
+    const projectListUl = document.getElementById('project-List')
+
+    if (!projectListUl) return;
+
+    projectListUl.innerHTML = ''
+
+    projects.forEach(project => {
+        const li = document.createElement('li')
+        li.dataset.projectName = project.name;
+        li.classList.add('project-list-item')
+        projectListUl.appendChild(li)
+    });
 }
