@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>My Todo App</header>
+    <div id="app"></div>
+    <div id="modal" class="hidden" >
+        <div class="add-project">
+            <form action="" id="projectForm">
+                <div class="projectName">
+                    <label for="project_name">Project Name</label>
+                    <input type="text" name="project-name" id="project_name">
+                </div>
+                <div class="projectDescription">
+                    <label for="project_description">Project Description</label>
+                    <input type="text" name="project-description" id="project_description">
+                </div>
+            </form>
+        </div>
+
+        <div class="add-todo">
+            <form action="" id="todoForm">
+                <input type="text" id="todoName" placeholder="Todo Name" required>
+                <input type="text" id="todoDescription" placeholder="Description">
+                <input type="date" id="todoDueDate">
+                <select name="" id="todoPriority">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                <button type="submit">Add Todo</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

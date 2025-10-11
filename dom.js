@@ -60,7 +60,7 @@ export function renderTodos(project) {
 
 //Handler function to when a project is created
 export function bindAppProject(handler) {
-    const addProjectBtn = document.getElemtBy<IdleDeadline('add-project-btn');
+    const addProjectBtn = document.getElemtByIdleDeadline('add-project-btn');
     if(!addProjectBtn) return 
 
     addProjectBtn.addEventListener('click', () => {
