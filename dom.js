@@ -58,8 +58,7 @@ export function renderTodos(project) {
 
 // --- Event Binding Functions --- //
 
-//when a project is created calles the handler function
-
+//Handler function to when a project is created
 export function bindAppProject(handler) {
     const addProjectBtn = document.getElemtBy<IdleDeadline('add-project-btn');
     if(!addProjectBtn) return 
@@ -67,4 +66,45 @@ export function bindAppProject(handler) {
     addProjectBtn.addEventListener('click', () => {
         //open form or modal
     })
+}
+
+// Click handler to the project list in the sidebar.
+export function bindProjectClick(handler) {
+    const projectListUl = document.getElementById('project-list');
+    if(!projectListUl) return
+
+    projectListUl.addEventListener('click', (e) => {
+        const li = e.target.closest('.project-list-item')
+        if (li) {
+            handler(li.dataset.projectName)
+        }
+    })
+}
+
+//Event listener to the Add Todo button
+export function bindAddTodo (handler) {
+    const addTodoBtn = document.getElementById('add-todo-btn')
+    if(!addTodoBtn) return;
+
+    const activeProjectName = document.querySelector('#todo-details h2').textContent.replace('Project:', '');
+
+    addTodoBtn.addEventListener('click', () => {
+        //form or modal
+    })
+}
+
+// Todo delete button event listener
+export function bindDeleteTodo(handler) {
+    const todoContainer = document.getElementById('todo-container');
+    if(!todoContainer) return
+
+     const activeProjectName = document.querySelector('#todo-details h2').textContent.replace('Project: ', '');
+
+    todosContainer.addEventListener('click', (e) => {
+        const deleteButton = e.target.closest('.delete-todo-btn');
+        if (deleteButton) {
+            const todoId = deleteButton.dataset.todoId;
+            handler(activeProjectName, todoId);
+        }
+    });
 }
