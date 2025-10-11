@@ -64,7 +64,11 @@ export function bindAppProject(handler) {
     if(!addProjectBtn) return 
 
     addProjectBtn.addEventListener('click', () => {
-        //open form or modal
+        projectForm = document.getElementById('add-project')
+        projectForm.display = 'block'
+
+        const prgName = document.getElementById('project_name').value
+        const prgDescription = document.getElementById('project_description').value
     })
 }
 
