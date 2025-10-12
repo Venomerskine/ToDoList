@@ -1,40 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+ <link rel="stylesheet" href="styles/styles.css">
+  <title>To-Do App</title>
 </head>
 <body>
-    <header>My Todo App</header>
-    <div id="app"></div>
-    
-        <div id="add-project" class="hidden">
-            <form action="" id="projectForm">
-                <div class="projectName">
-                    <label for="project_name">Project Name</label>
-                    <input type="text" name="project-name" id="project_name">
-                </div>
-                <div class="projectDescription">
-                    <label for="project_description">Project Description</label>
-                    <input type="text" name="project-description" id="project_description">
-                </div>
-            </form>
-        </div>
-    
-        <div id="add-todo" class="hidden">
-            <form action="" id="todoForm">
-                <input type="text" id="todoName" placeholder="Todo Name" required>
-                <input type="text" id="todoDescription" placeholder="Description">
-                <input type="date" id="todoDueDate">
-                <select name="" id="todoPriority">
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="High">High</option>
-                </select>
-                <button type="submit">Add Todo</button>
-            </form>
-        </div>
-  
+  <div id="app"></div>
+
+  <!-- Hidden forms -->
+  <form id="project-form" style="display:none;">
+    <input id="project_name" placeholder="Project name" required>
+    <input id="project_description" placeholder="Description">
+    <button type="submit">Save</button>
+  </form>
+
+  <form id="todo-form" style="display:none;">
+    <input id="todoName" placeholder="Task name" required>
+    <input id="todoDescription" placeholder="Description">
+    <input id="todoDueDate" type="date">
+    <select id="todoPriority">
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
+    <button type="submit">Save</button>
+  </form>
+
+  <script type="module" src="src/index.js"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@ export function renderProjects(projects){
         <header>To-Do App</header>
         <div id="sidebar">
             <h2>Projects</h2>
-            <ul id="project-list"><ul>
+            <ul id="project-list"></ul>
             <button id="add-project-btn" >Add New Project</button>
         </div>
         <main id="project-details">
@@ -18,7 +18,7 @@ export function renderProjects(projects){
         `
     }
 
-    const projectListUl = document.getElementById('project-List')
+    const projectListUl = document.getElementById('project-list')
 
     if (!projectListUl) return;
 
@@ -27,6 +27,7 @@ export function renderProjects(projects){
     projects.forEach(project => {
         const li = document.createElement('li')
         li.dataset.projectName = project.name;
+        li.textContent = project.name
         li.classList.add('project-list-item')
         projectListUl.appendChild(li)
     });
@@ -41,7 +42,7 @@ export function renderTodos(project) {
         `<div class = "todo-item" data-todo-id = "${todo.id}" >
             <input type = "checkbox" ${todo.completed ? 'checked' : ''}>
             <span>${todo.name} (Due: ${todo.dueDate || 'N/A'}) [${todo.priority}]</span>
-            <button class = "delete-to-btn" data-todo-id = "${todo.id}" >Delete</button>
+            <button class = "delete-todo-btn" data-todo-id = "${todo.id}" >Delete</button>
         </div>
         `
     ).join('')
@@ -58,18 +59,33 @@ export function renderTodos(project) {
 
 // --- Event Binding Functions --- //
 
+// Open form (purely visual)
+export function bindOpenProjectForm() {
+  const addProjectBtn = document.getElementById('add-project-btn');
+  const form = document.getElementById('project-form');
+  if (!addProjectBtn || !form) return;
+
+  addProjectBtn.addEventListener('click', () => {
+    form.style.display = 'block';
+  });
+}
+
 //Handler function to when a project is created
 export function bindAppProject(handler) {
-    const addProjectBtn = document.getElemtByIdleDeadline('add-project-btn');
-    if(!addProjectBtn) return 
+const form = document.getElementById('project-form')
+if (!form) return
 
-    addProjectBtn.addEventListener('click', () => {
-        projectForm = document.getElementById('add-project')
-        projectForm.display = 'block'
+form.addEventListener('submit', (e) => {
+    e.preventDefault()
 
-        const prgName = document.getElementById('project_name').value
-        const prgDescription = document.getElementById('project_description').value
-    })
+    const name = form.querySelector('#project_name').value.trim()
+    const description = form.querySelector('#project_description').value.trim()
+
+    handler(name, description)
+
+    form.reset();
+    form.style.display = 'none'
+})
 }
 
 // Click handler to the project list in the sidebar.
@@ -85,15 +101,36 @@ export function bindProjectClick(handler) {
     })
 }
 
-//Event listener to the Add Todo button
-export function bindAddTodo (handler) {
-    const addTodoBtn = document.getElementById('add-todo-btn')
-    if(!addTodoBtn) return;
 
-    const activeProjectName = document.querySelector('#todo-details h2').textContent.replace('Project:', '');
+// open todo form
+export function bindOpenTodoForm() {
+    const addTodoBtn  = document.getElementById('add-todo-btn')
+    const form = document.getElementById('todo-form')
+    if(!addTodoBtn || !form) return
 
     addTodoBtn.addEventListener('click', () => {
-        //form or modal
+        form.style.display = 'block'
+    })
+}
+
+//Event listener to the Add Todo button
+export function bindAddTodo (handler) {
+   const form = document.getElementById('todo-form')
+    if(!form) return;
+
+    const activeProjectName = document.querySelector('#project-details h2').textContent.replace('Project:', '').trim();
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const todoName = document.getElementById('todoName').value.trim()
+        const todoDescription = document.getElementById('todoDescription').value.trim()
+        const todoDueDate = document.getElementById('todoDueDate').value.trim()
+        const todoPriority = document.getElementById('todoPriority').value.trim()
+
+        handler(todoName, todoDescription, todoDueDate, todoPriority)
+
+        form.reset()
+        form.style.display = 'none'
     })
 }
 
@@ -102,9 +139,9 @@ export function bindDeleteTodo(handler) {
     const todoContainer = document.getElementById('todo-container');
     if(!todoContainer) return
 
-     const activeProjectName = document.querySelector('#todo-details h2').textContent.replace('Project: ', '');
+     const activeProjectName = document.querySelector('#project-details h2').textContent.replace('Project: ', '');
 
-    todosContainer.addEventListener('click', (e) => {
+    todoContainer.addEventListener('click', (e) => {
         const deleteButton = e.target.closest('.delete-todo-btn');
         if (deleteButton) {
             const todoId = deleteButton.dataset.todoId;
