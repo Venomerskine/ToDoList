@@ -35,11 +35,8 @@ function initializeApp() {
 
     bindProjectClick(handleProjectSelection); 
 
-    
+    bindOpenTodoForm(); 
     bindAddTodo(handleTodoCreation);
-    if (activeProject) {
-         DOM.bindOpenTodoForm();
-    }
 }
 
 function handleProjectCreation(name, description) {
@@ -54,7 +51,7 @@ function handleProjectSelection(projectName) {
     if (activeProject) {
         renderTodos(activeProject);
         bindOpenTodoForm(); 
-        // bindAddTodo(handleTodoCreation);
+        bindAddTodo(handleTodoCreation);
     }
 }
 
@@ -72,12 +69,3 @@ function handleTodoCreation(name, description, dueDate, priority) {
 }
 
 document.addEventListener('DOMContentLoaded', initializeApp);
-
-
-
-
-
-
-
-
-
