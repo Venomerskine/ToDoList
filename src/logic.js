@@ -63,3 +63,29 @@ export function findTodoById(projectName, todoId) {
     }
     return null;
 }
+
+export function renderTodoDetailsForEdit(todo) {
+    const form = document.getElementById('todo-form');
+    if (!form) return;
+
+    // Set form field values based on the todo object
+    document.getElementById('todoName').value = todo.name;
+    document.getElementById('todoDescription').value = todo.description;
+    document.getElementById('todoDueDate').value = todo.dueDate || ''; 
+    
+    // Set the correct option as selected
+    const prioritySelect = document.getElementById('todoPriority');
+    for (let i = 0; i < prioritySelect.options.length; i++) {
+        if (prioritySelect.options[i].value.toLowerCase() === todo.priority.toLowerCase()) {
+            prioritySelect.selectedIndex = i;
+            break;
+        }
+    }
+    
+    // Store the todo ID in the form itself for use during submission
+    form.dataset.editingId = todo.id; 
+    
+    // Change button text and display form
+    form.querySelector('button[type="submit"]').textContent = 'Update Task';
+    form.style.display = 'block';
+}
