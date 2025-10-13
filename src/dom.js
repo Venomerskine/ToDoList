@@ -172,3 +172,22 @@ export function renderTodoDetailsForEdit(todo) {
     form.querySelector('button[type="submit"]').textContent = 'Update Task';
     form.style.display = 'block';
 }
+
+export function bindTodoClick(handler) {
+    // Note: We need to use event delegation on the static todos-container
+    const todosContainer = document.getElementById('todos-container');
+    if (!todosContainer) return;
+
+    // Get the name of the currently active project
+    const activeProjectName = document.querySelector('#project-details h2').textContent.replace('Project:', '').trim();
+
+    todosContainer.addEventListener('click', (e) => {
+        const todoItem = e.target.closest('.todo-item');
+        
+        // Ensure the click was on a todo item AND NOT the delete button
+        if (todoItem && !e.target.closest('.delete-todo-btn')) {
+            const todoId = todoItem.dataset.todoId;
+            handler(activeProjectName, todoId);
+        }
+    });
+}

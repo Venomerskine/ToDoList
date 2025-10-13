@@ -1,3 +1,20 @@
+:root {
+  --color-bg-primary: #0e0e10;
+  --color-bg-secondary: #1a1c1f;
+  --color-accent: #00ffdd;
+  --color-accent-hover: #33ffe8;
+  --color-text-primary: #eaeaea;
+  --color-text-secondary: #b5b5b5;
+  --color-text-muted: #7a7a7a;
+  --color-border: #2a2a2a;
+  --color-shadow: rgba(0, 0, 0, 0.4);
+  --color-success: #00c896;
+  --color-error: #ff5c5c;
+  --color-warning: #ffc300;
+  --color-info: #33cfff;
+}
+
+
 *{
     padding: 0;
     border: 0;
@@ -12,8 +29,8 @@ body{
     justify-content: center;
 }
 #app{
-    background-color: #be7543;
-    color: #bad6d8;
+    background-color: var(--color-border);
+    color: var(--color-text-primary);
     width: 80%;
     height: 90vh;
     margin-top: 20px;
@@ -28,13 +45,13 @@ body{
 header{
     grid-column-start:  1;
     grid-column-end:  -1;
-    background-color: #833a0a;
+    background-color: var(--color-bg-secondary);
     padding: 12px;
     border-radius: 20px 20px 0px 0px;
     text-align: center;
     font-size: 35px;
     font-weight: 700;
-    color: #dcdfe0;
+    color: var(--color-text-primary);
 }
 
 #sidebar{
@@ -42,13 +59,14 @@ header{
     grid-column-end: 2;
     grid-row-start: 2;
     grid-row-end: -1;
-    background-color: #642805;
+    background-color: var(--color-bg-primary);
     border-radius: 0px 0px 0px 20px;
     padding: 12px;
 
 }
 
 #sidebar h2{
+    color: var(--color-text-secondary);
     font-size: 30px;
     text-transform: uppercase;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -66,7 +84,7 @@ header{
     padding: 9px;
     font-size: 20px;
     text-transform: capitalize;
-    background-color: #753d09;
+    background-color: var(--color-bg-secondary);
     margin: 3px;
     border-radius: 4px;
     color: #cbdcdd;
@@ -77,7 +95,7 @@ header{
 #add-project-btn{
    padding: 7px;
    border-radius: 5px;
-   background-color: #df5d07;
+   background-color: var(--color-success);
    color: rgb(255, 255, 255);
    font-size: 20px;
    cursor: pointer;
@@ -88,30 +106,40 @@ header{
     grid-column-end: -1;
     grid-row-start: 2;
     grid-row-end: -1;
-    background-color: #bb4c03;
+    background-color: var(--color-bg-secondary);
     border-radius: 0px 0px 20px 0px;
     padding: 12px;
 }
 
 #project-details h2{
     font-size: 35px;
-    color: #000000;
+    color: var(--color-text-primary);
     text-transform: capitalize;
 }
 
 #project-details h3{
     font-size: 30px;
-    color: #1f0e01;
+    color: var(--color-text-secondary);
 }
 
-#project-details button{
+#project-details #add-todo-btn{
     padding: 7px;
     border-radius: 5px;
-    background-color: #632604;
+    background-color: var(--color-success);
     color: rgb(255, 255, 255);
     font-size: 20px;
     cursor: pointer;
 }
+
+#project-details .delete-todo-btn{
+    padding: 7px;
+    border-radius: 5px;
+    background-color: var(--color-error);
+    color: var(--color-bg-primary);
+    font-size: 20px;
+    cursor: pointer;  
+}
+
 
 #project-details p{
     font-size: 20px;
@@ -120,7 +148,8 @@ header{
 }
 
 #project-form, #todo-form{
-    background-color: #c97741;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-secondary);
     position: fixed;
     top: auto;
     left: auto;
@@ -158,13 +187,19 @@ input, select{
 }
 
 .todo-item{
-    background-color: #cc980b;
+    background-color: var(--color-bg-primary);
     margin: 4px;
-    color: #1f0e01;
+    color: var(--color-text-primary);
     display: grid;
     grid-template-columns: auto auto auto;
     grid-gap: 9px;
+    transition: 0.17s ease-in-out;
     
+}
+
+.todo-item:hover{
+    background-color: var(--color-accent);
+    color: #1a1c1f;
 }
 
 .todo-item input{
