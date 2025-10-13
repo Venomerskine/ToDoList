@@ -55,6 +55,7 @@ export function renderTodos(project) {
         <div id="todos-container">${todosHtml}</div>
         <button id="add-todo-btn">Add New To-Do</button>
     `
+    bindTodoClick(window.todoClickHandler)
 }
 
 // --- Event Binding Functions --- //
@@ -174,17 +175,14 @@ export function renderTodoDetailsForEdit(todo) {
 }
 
 export function bindTodoClick(handler) {
-    // Note: We need to use event delegation on the static todos-container
     const todosContainer = document.getElementById('todos-container');
     if (!todosContainer) return;
 
-    // Get the name of the currently active project
     const activeProjectName = document.querySelector('#project-details h2').textContent.replace('Project:', '').trim();
 
     todosContainer.addEventListener('click', (e) => {
         const todoItem = e.target.closest('.todo-item');
         
-        // Ensure the click was on a todo item AND NOT the delete button
         if (todoItem && !e.target.closest('.delete-todo-btn')) {
             const todoId = todoItem.dataset.todoId;
             handler(activeProjectName, todoId);

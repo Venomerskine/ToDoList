@@ -5,14 +5,19 @@ import {
   bindAppProject, 
   bindOpenTodoForm, 
   bindAddTodo,
-  bindProjectClick 
+  bindProjectClick ,
+  bindTodoClick,
+  renderTodoDetailsForEdit,
+  bindDeleteTodo
 } from './dom.js';
 
 import { 
   createProject, 
   listProjects, 
   createTodoAndAddToProject ,
-  findProjectByName
+  findProjectByName,
+  findTodoById,
+  deleteFromProject
 } from './logic.js';
 
 let activeProject = null; 
@@ -35,8 +40,8 @@ function initializeApp() {
 
     bindProjectClick(handleProjectSelection); 
 
-    bindAddTodo(handleTodoCreation);
-    
+    bindAddTodo(handleTodoUpdateOrCreation)
+
     if (activeProject) {
          DOM.bindOpenTodoForm();
     }
@@ -54,20 +59,71 @@ function handleProjectSelection(projectName) {
     if (activeProject) {
         renderTodos(activeProject);
         bindOpenTodoForm(); 
+        bindTodoClick(handleTodoClick); 
+        bindDeleteTodo(handleTodoDeletion)
     }
 }
 
-function handleTodoCreation(name, description, dueDate, priority) {
-    if (!activeProject) {
-        console.error("Cannot add todo: No project is currently active.");
-        return;
+function handleTodoUpdateOrCreation(name, description, dueDate, priority) {
+    const form = document.getElementById('todo-form');
+    const editingId = form.dataset.editingId;
+    
+    if (editingId) {
+        handleTodoUpdate(name, description, dueDate, priority);
+    } else {
+        if (!activeProject) {
+            console.error("Cannot add todo: No project is currently active.");
+            return;
+        }
+        createTodoAndAddToProject(activeProject.name, name, description, dueDate, priority);
+
+        form.reset();
+        form.style.display = 'none';
+
+        handleProjectSelection(activeProject.name); 
     }
+}
+
+function handleTodoClick(projectName, todoId) {
+    const todo = findTodoById(projectName, todoId);
+    
+    if (todo) {
+        renderTodoDetailsForEdit(todo);
+    }
+}
+
+function handleTodoUpdate(name, description, dueDate, priority) {
+    const form = document.getElementById('todo-form');
+    const todoId = form.dataset.editingId; 
+    
+    if (!todoId || !activeProject) return;
+
+
+    const todoToUpdate = findTodoById(activeProject.name, todoId);
+
+    if (todoToUpdate) {
+
+        const updates = { name, description, dueDate, priority };
+        todoToUpdate.update(updates);
+    }
+
+   
+    form.dataset.editingId = ''; 
+    form.querySelector('button[type="submit"]').textContent = 'Save'; 
+    form.reset();
+    form.style.display = 'none';
     
 
-    createTodoAndAddToProject(activeProject.name, name, description, dueDate, priority);
+    handleProjectSelection(activeProject.name); 
+}
 
-    renderTodos(activeProject); 
-    bindOpenTodoForm(); 
+function handleTodoDeletion(projectName, todoId) {
+    if (!activeProject) return;
+
+    deleteFromProject(projectName, todoId);
+
+
+    handleProjectSelection(activeProject.name);
 }
 
 document.addEventListener('DOMContentLoaded', initializeApp);

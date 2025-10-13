@@ -27,6 +27,7 @@ body{
     width: 100vw;
     display: flex;
     justify-content: center;
+    background-color: var(--color-border);
 }
 #app{
     background-color: var(--color-border);
@@ -194,6 +195,7 @@ input, select{
     grid-template-columns: auto auto auto;
     grid-gap: 9px;
     transition: 0.17s ease-in-out;
+    border-radius: 5px;
     
 }
 
