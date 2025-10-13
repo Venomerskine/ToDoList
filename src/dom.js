@@ -149,3 +149,26 @@ export function bindDeleteTodo(handler) {
         }
     });
 }
+
+export function renderTodoDetailsForEdit(todo) {
+    const form = document.getElementById('todo-form');
+    if (!form) return;
+
+    document.getElementById('todoName').value = todo.name;
+    document.getElementById('todoDescription').value = todo.description;
+    document.getElementById('todoDueDate').value = todo.dueDate || ''; 
+    
+    const prioritySelect = document.getElementById('todoPriority');
+    for (let i = 0; i < prioritySelect.options.length; i++) {
+        if (prioritySelect.options[i].value.toLowerCase() === todo.priority.toLowerCase()) {
+            prioritySelect.selectedIndex = i;
+            break;
+        }
+    }
+    
+    form.dataset.editingId = todo.id; 
+    
+
+    form.querySelector('button[type="submit"]').textContent = 'Update Task';
+    form.style.display = 'block';
+}

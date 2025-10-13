@@ -58,7 +58,6 @@ export function findTodoById(projectName, todoId) {
     const targetProject = findProjectByName(projectName);
     
     if (targetProject) {
-        // IDs are strings, use '==' or ensure proper type comparison
         return targetProject.todos.find(todo => todo.id === todoId);
     }
     return null;
