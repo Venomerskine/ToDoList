@@ -20,6 +20,16 @@ import {
   deleteFromProject
 } from './logic.js';
 
+import { saveData, loadData } from './storage.js';
+
+function persistData() {
+  saveData('projects', listProjects());
+}
+
+
+const projects = loadData('projects') || [];
+renderProjects(projects);
+
 let activeProject = null; 
 
 function initializeApp() {
@@ -43,16 +53,18 @@ function initializeApp() {
     bindAddTodo(handleTodoUpdateOrCreation)
 
     if (activeProject) {
-         DOM.bindOpenTodoForm();
+        bindOpenTodoForm();
     }
 }
 
 function handleProjectCreation(name, description) {
-    createProject(name, description);
-    renderProjects(listProjects());
-    bindOpenProjectForm(); 
-    bindProjectClick(handleProjectSelection); 
+  createProject(name, description);
+  renderProjects(listProjects());
+  persistData();
+  bindOpenProjectForm(); 
+  bindProjectClick(handleProjectSelection); 
 }
+
 
 function handleProjectSelection(projectName) {
     activeProject = findProjectByName(projectName);
@@ -65,24 +77,27 @@ function handleProjectSelection(projectName) {
 }
 
 function handleTodoUpdateOrCreation(name, description, dueDate, priority) {
-    const form = document.getElementById('todo-form');
-    const editingId = form.dataset.editingId;
-    
-    if (editingId) {
-        handleTodoUpdate(name, description, dueDate, priority);
-    } else {
-        if (!activeProject) {
-            console.error("Cannot add todo: No project is currently active.");
-            return;
-        }
-        createTodoAndAddToProject(activeProject.name, name, description, dueDate, priority);
-
-        form.reset();
-        form.style.display = 'none';
-
-        handleProjectSelection(activeProject.name); 
+  const form = document.getElementById('todo-form');
+  const editingId = form.dataset.editingId;
+  
+  if (editingId) {
+    handleTodoUpdate(name, description, dueDate, priority);
+  } else {
+    if (!activeProject) {
+      console.error("Cannot add todo: No project is currently active.");
+      return;
     }
+
+    createTodoAndAddToProject(activeProject.name, name, description, dueDate, priority);
+    persistData(); 
+
+    form.reset();
+    form.style.display = 'none';
+
+    handleProjectSelection(activeProject.name); 
+  }
 }
+
 
 function handleTodoClick(projectName, todoId) {
     const todo = findTodoById(projectName, todoId);
@@ -102,10 +117,10 @@ function handleTodoUpdate(name, description, dueDate, priority) {
     const todoToUpdate = findTodoById(activeProject.name, todoId);
 
     if (todoToUpdate) {
-
-        const updates = { name, description, dueDate, priority };
-        todoToUpdate.update(updates);
-    }
+  const updates = { name, description, dueDate, priority };
+  todoToUpdate.update(updates);
+  persistData(); 
+}
 
    
     form.dataset.editingId = ''; 
@@ -118,12 +133,11 @@ function handleTodoUpdate(name, description, dueDate, priority) {
 }
 
 function handleTodoDeletion(projectName, todoId) {
-    if (!activeProject) return;
-
-    deleteFromProject(projectName, todoId);
-
-
-    handleProjectSelection(activeProject.name);
+  if (!activeProject) return;
+  deleteFromProject(projectName, todoId);
+  persistData(); 
+  handleProjectSelection(activeProject.name);
 }
+
 
 document.addEventListener('DOMContentLoaded', initializeApp);

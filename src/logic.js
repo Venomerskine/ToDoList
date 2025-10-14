@@ -1,5 +1,6 @@
 import { Project } from "./project.js";
 import { Todo } from "./todo.js";
+import { saveData, loadData } from './storage.js';
 
 const projects = []
 
@@ -7,11 +8,13 @@ const projects = []
 export function createProject(name, description){
     const newProject = new Project(name, description);
     projects.push(newProject);
+    saveData('projects', projects);
     return newProject;
 }
 
 //List projects
 export function listProjects() {
+    
     return projects;
 }
 // Find project by name
@@ -26,6 +29,8 @@ export function createTodoAndAddToProject(projectName, name, description, dueDat
     if (targetProject) {
         const newTodo = new Todo(name, description, dueDate, priority, completed, notes)
         targetProject.addTodo(newTodo)
+        console.log(newTodo)
+        saveData('projects', projects);
         return newTodo
     } else {
         console.error(`Project "${projectName}" not found`)

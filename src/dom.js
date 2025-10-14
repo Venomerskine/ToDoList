@@ -137,7 +137,7 @@ export function bindAddTodo (handler) {
 
 // Todo delete button event listener
 export function bindDeleteTodo(handler) {
-    const todoContainer = document.getElementById('todo-container');
+    const todoContainer = document.getElementById('todos-container');
     if(!todoContainer) return
 
      const activeProjectName = document.querySelector('#project-details h2').textContent.replace('Project: ', '');
