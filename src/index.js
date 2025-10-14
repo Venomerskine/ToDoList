@@ -34,6 +34,7 @@ let activeProject = null;
 
 function initializeApp() {
   const projects = listProjects()
+  console.log(projects)
   if(projects.length === 0){
     activeProject = createProject('Inbox', 'Default tasks')
   } else{

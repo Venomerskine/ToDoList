@@ -14,8 +14,9 @@ export function createProject(name, description){
 
 //List projects
 export function listProjects() {
-    
-    return projects;
+    // projects.push(loadData('projects'))
+    return projects
+
 }
 // Find project by name
 export function findProjectByName (name) {
