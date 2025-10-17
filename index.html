@@ -1,32 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
- <link rel="stylesheet" href="styles/styles.css">
-  <title>To-Do App</title>
-</head>
-<body>
-  <div id="app"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles/styles.css" />
+    <title>To-Do App</title>
+  </head>
+  <body>
+    <div id="app"></div>
 
-  <!-- Hidden forms -->
-  <form id="project-form" style="display:none;">
-    <input id="project_name" placeholder="Project name" required>
-    <input id="project_description" placeholder="Description">
-    <button type="submit">Save</button>
-  </form>
+    <!-- Hidden forms -->
+    <form id="project-form" style="display: none">
+      <input id="project_name" placeholder="Project name" required />
+      <input id="project_description" placeholder="Description" />
+      <button type="submit">Save</button>
+    </form>
 
-  <form id="todo-form" style="display:none;">
-    <input id="todoName" placeholder="Task name" required>
-    <input id="todoDescription" placeholder="Description">
-    <input id="todoDueDate" type="date">
-    <select id="todoPriority">
-      <option value="Low">Low</option>
-      <option value="Medium">Medium</option>
-      <option value="High">High</option>
-    </select>
-    <button type="submit">Save</button>
-  </form>
+    <form id="todo-form" style="display: none">
+      <input id="todoName" placeholder="Task name" required />
+      <input id="todoDescription" placeholder="Description" />
+      <input id="todoDueDate" type="date" />
+      <select id="todoPriority">
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+      <button type="submit">Save</button>
+    </form>
 
-  <script type="module" src="src/index.js"></script>
-</body>
+    <script type="module" src="src/index.js"></script>
+  </body>
 </html>
